@@ -1,0 +1,8 @@
+
+
+DEBUG = True
+
+SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:123456@localhost:3306/oj'
+SQLALCHEMY_TRACK_MODIFICATIONS = True
+SQLALCHEMY_COMMIT_ON_TEARDOWN = True
+SECRET_KEY = "chinazz"
