@@ -16,7 +16,7 @@ yuyan = {
     3:"C++"
 }
 
-class Problem(db.Model):
+class problem(db.Model):
     id = Column(Integer,primary_key=True,autoincrement=True)
     title = Column(String(50),unique=True,nullable=False)
     description = Column(String(2000))
@@ -29,16 +29,23 @@ class Problem(db.Model):
     input_test = Column(String(2000))
     output_test = Column(String(2000))
 
+    def __repr__(self):
+        return '<problem-id %r>' % self.id
 
-class Problem_status(db.Model):
+
+class problem_status(db.Model):
     run_id = Column(Integer,primary_key=True,autoincrement=True)
-    problem_id = Column(Integer,unique=True)
+    problem_id = Column(Integer)
     result = Column(Integer,default=1)
-    remember = Column(Integer)
-    time = Column(Integer)
+    remember = Column(Integer,default=0)
+    time = Column(Integer,default=0)
     language = Column(Integer,default=1)
+    code = Column(String(20000))
     code_len = Column(Integer)
-    submit_time = Column(DateTime,nullable=False)
+    #submit_time = Column(DateTime,nullable=False)
+
+    def __repr__(self):
+        return '<run_id %r>' % self.run_id
 
 
 

@@ -1,0 +1,13 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<li>题目id：<br>{{ p_one.id }}</li>
+<li>题目标题：<br>{{ p_one.title }}</li>
+<li>题目介绍：<br>{{ p_one.description }}</li>
+<li>输入介绍：<br>{{ p_one.input_description }}</li>
+<li>输出介绍：<br>{{ p_one.output_description }}</li>
+<li>输入样例：<br>{{ p_one.input_example }}</li>
+<li>输出样例：<br>{{ p_one.output_example }}</li>
+<li>题目提示：<br>{{ p_one.hint }}</li>
+<li>题目来源：<br>{{ p_one.source }}</li>
+
+{{ wtf.quick_form(form) }}
