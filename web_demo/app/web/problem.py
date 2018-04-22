@@ -3,36 +3,36 @@ from flask import jsonify,request,render_template,flash,redirect
 
 from . import web
 from app.forms.problem import edit_problem_form,edit_code_form
-from app.db_save.problem import problem_db,problem_db_status
+from app.models.problem import problem,problem_status
+#from app.db_save.problem import problem_db,problem_db_status
 
 @web.route('/',methods=['GET','POST'])
 def edit_problem():
-    form = edit_problem_form
-    db = problem_db()
-
+    db = problem()
+    form = edit_problem_form()
     if form.validate_on_submit():
-        db.save_problem(form)
+        db.edit_problem(form)
 
     return render_template('edit-problem.html',form=form)
 
 
 @web.route('/showproblem')
 def show_problem():
-    db = problem_db()
+    db = problem()
     
     return render_template('show-problem.html',data=db.query_problem())
 
 @web.route('/showstatus')
 def show_status():
-    db_code = problem_db_status()
+    db_code = problem_status()
 
     return render_template('show-problem-status.html',data=db_code.query_db_status())
 
 
 @web.route('/showproblem/<id>',methods=['GET','POST'])
 def show_one_problem(id):
-    db = problem_db()
-    db_code = problem_db_status()
+    db = problem()
+    db_code = problem_status()
     form = edit_code_form()
     
     if form.validate_on_submit():
