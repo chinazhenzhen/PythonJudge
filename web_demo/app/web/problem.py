@@ -6,7 +6,12 @@ from app.forms.problem import edit_problem_form,edit_code_form
 from app.models.problem import problem,problem_status
 #from app.db_save.problem import problem_db,problem_db_status
 
-@web.route('/',methods=['GET','POST'])
+@web.route('/')
+def index():
+    return render_template('index.html')
+
+
+@web.route('/editproblem',methods=['GET','POST'])
 def edit_problem():
     db = problem()
     form = edit_problem_form()

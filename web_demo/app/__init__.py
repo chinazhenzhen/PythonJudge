@@ -11,11 +11,9 @@ def create_app():
     register_blueprint(app)  # 蓝图注册
 
     db.init_app(app)
-    db.create_all(app=app)
+    db.create_all(app=app)  #创建数据库
 
     bootstrap.init_app(app)  #加载bootstrap模块
-
-
 
     return app
 
