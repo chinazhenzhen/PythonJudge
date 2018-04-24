@@ -7,6 +7,11 @@
     <li class=""><a href="./">DLNU-onlinejudge</a></li>
     <li class=""><a href="./showproblem">题库</a></li>
     <li class=""><a href="#">比赛</a></li>
+    {% if current_user.is_authenticated %}
+        <li class=""><a href="./logout">注销</a></li>
+    {% else %}
+        <li class=""><a href="./login">登录</a></li>
+    {% endif %}
 </ul>
 {% endblock %}
 

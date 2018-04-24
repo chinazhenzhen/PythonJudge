@@ -1,8 +1,11 @@
 from flask import Flask
 from app.models.problem import db
 from flask_bootstrap import Bootstrap
+from flask_login import LoginManager
 
 bootstrap = Bootstrap()
+login_manager = LoginManager()
+login_manager.login_view = 'web.login'
 
 def create_app():
     app = Flask(__name__)
@@ -14,6 +17,9 @@ def create_app():
     db.create_all(app=app)  #创建数据库
 
     bootstrap.init_app(app)  #加载bootstrap模块
+
+    login_manager.init_app(app)
+
 
     return app
 
