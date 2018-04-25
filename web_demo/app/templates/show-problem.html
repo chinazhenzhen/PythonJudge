@@ -1,8 +1,35 @@
 {% extends "index.html" %}
 
+{% block title %}
+    题库-DLNU-onlinejudge
+{% endblock %}
+
 {% block content %}
-    {% for p_one in data %}
-        <li><a href="./showproblem/{{ p_one.id }}">{{ p_one }}</a></li>
-        <li>{{ p_one.id,p_one.title,p_one.description,p_one.input_description,p_one.output_description,p_one.input_example,p_one.output_example,p_one.hint,p_one.source  }}</li>
-    {% endfor %}
+
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-6"><h1>题库</h1></div>
+        <div class="col-lg-6">
+            <br>
+            <div class="input-group-lg">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            {% for p_one in data %}
+                <a href="./showproblem/{{ p_one.id }}"><h3 class="page-header">{{ p_one.title }}</h3></a>
+                通过人次：3456 通过率：34.56% 题目编号：{{ p_one.id }}
+            {% endfor %}
+        </div>
+        <div class="col-lg-4">
+
+        </div>
+    </div>
+    </div>
+
 {% endblock %}
