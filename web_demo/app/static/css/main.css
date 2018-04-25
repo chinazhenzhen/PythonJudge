@@ -1,0 +1,7 @@
+.navbar-brand {
+    background-image: url(../image/dlnu.png);
+    width: 50px;
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

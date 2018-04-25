@@ -1,4 +1,5 @@
-{% block body %}
+{% extends "index.html" %}
+{% block content %}
     {% for p_one in data %}
         <li>运行编号:{{ p_one.run_id }}题目编号：{{ p_one.problem_id}}状态：{{ p_one.result }}</li>
     {% endfor %}

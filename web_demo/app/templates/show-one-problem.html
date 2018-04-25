@@ -1,5 +1,8 @@
+{% extends "index.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
+
+{% block content %}
 <li>题目id：<br>{{ p_one.id }}</li>
 <li>题目标题：<br>{{ p_one.title }}</li>
 <li>题目介绍：<br>{{ p_one.description }}</li>
@@ -11,3 +14,4 @@
 <li>题目来源：<br>{{ p_one.source }}</li>
 
 {{ wtf.quick_form(form) }}
+{% endblock %}

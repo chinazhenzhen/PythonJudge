@@ -1,4 +1,6 @@
-{% block body %}
+{% extends "index.html" %}
+
+{% block content %}
     {% for p_one in data %}
         <li><a href="./showproblem/{{ p_one.id }}">{{ p_one }}</a></li>
         <li>{{ p_one.id,p_one.title,p_one.description,p_one.input_description,p_one.output_description,p_one.input_example,p_one.output_example,p_one.hint,p_one.source  }}</li>
