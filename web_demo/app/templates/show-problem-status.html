@@ -1,6 +1,73 @@
 {% extends "index.html" %}
+
+{% block title %}
+    状态-DLNU-onlinejudge
+{% endblock %}
+
 {% block content %}
-    {% for p_one in data %}
-        <li>运行编号:{{ p_one.run_id }}题目编号：{{ p_one.problem_id}}状态：{{ p_one.result }}</li>
-    {% endfor %}
+<div class="container main">
+	<div class="col-md-12 col-lg-12">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>用户</th>
+					<th>题目名称</th>
+					<th>提交时间</th>
+					<th>
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" id="languageFilter" data-toggle="dropdown"
+							   aria-haspopup="true" aria-expanded="true">
+								语言<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="languageFilter">
+								<li><a href="/submissions/?language=1">C</a></li>
+								<li><a href="/submissions/?language=2">C++</a></li>
+								<li><a href="/submissions/?language=3">Java</a></li>
+								<li><a href="/submissions/?language=4">Python</a></li>
+								<li><a href="/submissions/">取消筛选</a></li>
+							</ul>
+						</div>
+					</th>
+					<th>运行时间</th>
+					<th>运行内存</th>
+					<th>代码长度</th>
+					<th>
+						<div class="dropdown">
+							<a href="#" class="dropdown-toggle" id="resultFilter" data-toggle="dropdown"
+							   aria-haspopup="true" aria-expanded="true">
+								结果<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="resultFilter">
+								<li><a href="/submissions/?result=0">Accepted</a></li>
+								<li><a href="#">Wrong Answer</a></li>
+								<li><a href="#">Runtime Error</a></li>
+								<li><a href="#">Time Limit Exceeded</a></li>
+								<li><a href="#">Memory Limit Exceeded</a></li>
+								<li><a href="#">Compile Error</a></li>
+								<li><a href="#">Format Error</a></li>
+								<li><a href="#">取消筛选</a></li>
+							</ul>
+						</div>
+					</th>
+            	</tr>
+			</thead>
+			<tbody>
+				{% for p_one in data %}
+				<tr>
+					<th scope="row"><a href="#">{{ p_one.run_id }}</a></th>
+					<td><a href="#">develop...</a></td>
+					<td><a href="">{{ p_one.problem_id }}should be name</a></td>
+					<td>2018.4.4 3.22</td>
+					<td>C++</td>
+					<td>--</td>
+					<td>--</td>
+					<td>--</td>
+					<td class="warning"><strong>pending</strong></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
 {% endblock %}

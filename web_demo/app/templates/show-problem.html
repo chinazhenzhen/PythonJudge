@@ -6,6 +6,7 @@
 
 {% block content %}
 
+
     <div class="container">
     <div class="row">
         <div class="col-lg-6"><h1>题库</h1></div>
@@ -18,18 +19,49 @@
     </div>
     </div>
 
-    <div class="container">
-    <div class="row">
-        <div class="col-lg-8">
-            {% for p_one in data %}
-                <a href="./showproblem/{{ p_one.id }}"><h3 class="page-header">{{ p_one.title }}</h3></a>
-                通过人次：3456 通过率：34.56% 题目编号：{{ p_one.id }}
-            {% endfor %}
-        </div>
-        <div class="col-lg-4">
-
-        </div>
-    </div>
-    </div>
+	<div class="container main">
+        <div class="row">
+			<div class="col-md-9 col-lg-9">
+				<div>
+					<table class="table table-striped">
+						<thead>
+						<tr>
+                            <th></th>
+                            <th>#</th>
+                            <th>题目</th>
+                            <th><a href="/problems/?order_by=difficulty">难度</a></th>
+                            <th>通过率</th>
+                        </tr>
+                        </thead>
+						<tbody>
+							{% for p_one in data %}
+							<tr>
+                                <th><span class=""></span></th>
+                                <th scope="row"><a href="./showproblem/{{ p_one.id }}">{{ p_one.id }}</a></th>
+                                <td><a href="./showproblem/{{ p_one.id }}">{{ p_one.title }}</a></td>
+                                <td>简单</td>
+                                <td>32% (483 / 1466)</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-3 col-lg-3">
+			<div class="panel panel-info">
+    			<div class="panel-heading">
+        		<h3 class="panel-title">
+            		<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>公告
+       	 		</h3>
+				</div>
+    			<div class="panel-body">    
+            		<p>1.&nbsp;&nbsp;<a href="#" target="_blank">网站临时关闭通知</a></p>
+            		<p>2.&nbsp;&nbsp;<a href="#" target="_blank">dlnuacm暑期培训开始报名</a></p>
+            		<p>3.&nbsp;&nbsp;<a href="#" target="_blank">1.1.0</a></p>
+    			</div>
+			</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

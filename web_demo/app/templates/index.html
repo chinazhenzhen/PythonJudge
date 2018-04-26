@@ -18,13 +18,14 @@
             <a href="./" class="navbar-brand"></a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="./">首页</a> </li>
-            <li><a href="./showproblem">题库</a> </li>
+            <li><a href="{{url_for('web.index',_external=True)}}">首页</a> </li>
+            <li><a href="{{url_for('web.show_problem',_external=True)}}">题库</a> </li>
             <li><a href="#">比赛</a> </li>
-            <li><a href="./showstatus">状态</a></li>
+            <li><a href="{{url_for('web.show_status',_external=True)}}">状态</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right ">
             {% if current_user.is_authenticated %}
+                <li><a href="">{{ current_user.name }}</a> </li>
                 <li><button type="button" onclick="button_click('{{url_for('web.logout',_external=True)}}')" class="navbar-btn btn btn-warning btn-sm">注销</button></li>
             {% else %}
                 <li><button type="button" onclick="button_click('{{url_for('web.register',_external=True)}}')" class="navbar-btn btn btn-primary btn-sm">帐号申请</button></li>
