@@ -56,9 +56,9 @@
 				{% for p_one in data %}
 				<tr>
 					<th scope="row"><a href="#">{{ p_one.run_id }}</a></th>
-					<td><a href="#">develop...</a></td>
+					<td><a href="#">{{ p_one.user_name }}</a></td>
 					<td><a href="">{{ p_one.problem_id }}should be name</a></td>
-					<td>2018.4.4 3.22</td>
+					<td>{{ p_one.time }}</td>
 					<td>C++</td>
 					<td>--</td>
 					<td>--</td>

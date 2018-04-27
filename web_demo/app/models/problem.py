@@ -1,4 +1,5 @@
 from sqlalchemy import Column,Integer,String,DateTime,ForeignKey
+import datetime
 
 from app.models import db
 
@@ -65,9 +66,10 @@ class problem_status(db.Model):
     problem_id = Column(Integer,ForeignKey('problem.id'))
     #通过problem_info就可以查询相关信息
     problem_infor = db.relationship('problem',backref=db.backref('problem_status'))
+    user_name = Column(String(64))
     result = Column(Integer,default=1)
     remember = Column(Integer,default=0)
-    time = Column(Integer,default=0)
+    time = Column(String(32))
     language = Column(Integer,default=1)
     code = Column(String(20000))
     code_len = Column(Integer)
@@ -80,12 +82,15 @@ class problem_status(db.Model):
         self.problem_id = data['id']
         self.language = data['language']
         self.code = data['code']
+        self.user_name = data['user_name']
+        now = datetime.datetime.now()
+        self.time = now.strftime('%Y-%m-%d %H:%M:%S') #获得时间戳，最好写成函数
 
         db.session.add(self)
 
     @staticmethod
     def query_db_status():
-        status_data = problem_status.query.all()
+        status_data = problem_status.query.order_by(problem_status.run_id.desc()).all()
         db.session.rollback()
         return status_data
 

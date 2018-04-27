@@ -1,5 +1,5 @@
 from flask import jsonify,request,render_template,flash,redirect
-
+from flask_login import current_user
 
 from . import web
 from app.forms.problem import edit_problem_form,edit_code_form
@@ -45,6 +45,7 @@ def show_one_problem(id):
         data['id'] = id
         data['code'] = form.code.data
         data['language'] = form.code_language.data
+        data['user_name'] = current_user.name
         db_code.submit_code(data)
         return redirect("/showstatus")
     else:
