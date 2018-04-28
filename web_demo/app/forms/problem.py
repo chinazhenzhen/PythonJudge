@@ -4,7 +4,9 @@ from wtforms.validators import Length,DataRequired
 
 class edit_problem_form(FlaskForm):
     title = StringField(validators=[DataRequired(),Length(min=1,max=30)])
-    description = TextAreaField()
+    description = TextAreaField(validators=[DataRequired(),Length(min=1,max=100000)])
+    time_limit = IntegerField(validators=[DataRequired()])
+    memory_limit = IntegerField(validators=[DataRequired()])
     input_description = StringField(validators=[DataRequired(),Length(min=1,max=1000)])
     output_description = StringField(validators=[DataRequired(),Length(min=1,max=1000)])
     input_example = StringField(validators=[DataRequired(),Length(min=1,max=1000)])

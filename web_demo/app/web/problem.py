@@ -4,6 +4,7 @@ from flask_login import current_user
 from . import web
 from app.forms.problem import edit_problem_form,edit_code_form
 from app.models.problem import problem,problem_status
+from app.setting import JudgeConfig
 #from app.db_save.problem import problem_db,problem_db_status
 
 @web.route('/')
@@ -31,7 +32,7 @@ def show_problem():
 def show_status():
     db_code = problem_status()
 
-    return render_template('show-problem-status.html',data=db_code.query_db_status())
+    return render_template('show-problem-status.html',data=db_code.query_db_status(),language=JudgeConfig.language_id)
 
 
 @web.route('/showproblem/<id>',methods=['GET','POST'])
@@ -54,4 +55,5 @@ def show_one_problem(id):
 
 @web.route('/test')
 def test():
-    return "hello"
+    db = problem()
+    return render_template('test.html',status_one=db.query_one_problem_status(1))

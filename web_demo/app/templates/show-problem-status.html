@@ -59,11 +59,13 @@
 					<td><a href="#">{{ p_one.user_name }}</a></td>
 					<td><a href="">{{ p_one.problem_id }}should be name</a></td>
 					<td>{{ p_one.time }}</td>
-					<td>C++</td>
+					<td>{{ language[p_one.language] }}</td>
 					<td>--</td>
 					<td>--</td>
 					<td>--</td>
-					<td class="warning"><strong>pending</strong></td>
+					<td class="warning"><strong>
+                        {{ p_one.result }}
+                    </strong></td>
 				</tr>
 				{% endfor %}
 			</tbody>

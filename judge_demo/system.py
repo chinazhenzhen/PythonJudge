@@ -1,4 +1,5 @@
 
+
 import time
 import subprocess
 import psutil
@@ -41,10 +42,10 @@ class MyConfig():
 
 
 def db():
-    db = pymysql.connect(host="210.30.1.140", user="root", password="root", db="teaching", port=3306)
+    db = pymysql.connect(host="127.0.0.1", user="root", password="123456", db="oj", port=3306)
     cursor = db.cursor()
     while True:
-        cursor.execute("select * from teach_submit_code  WHERE submit_state = 0")
+        cursor.execute("select * from problem_status  WHERE result = 0")
         time.sleep( 0.5 )
 
         problem_infor = {}
@@ -52,15 +53,15 @@ def db():
             i = cursor.fetchone()
             print(i)
             problem_infor["run_id"] = i[0]  #题目运行id
-            problem_infor["code"] = i[5]  # debug代码，代码code
+            problem_infor["code"] = i[7]  # debug代码，代码code
             problem_infor["id"] = i[1]  # 题目编号
-            problem_infor["language"] = i[7]  # debug语言编号
-            cursor.execute("select * from teach_test_data where problem_id =%s" % problem_infor["id"])
+            problem_infor["language"] = i[6]  # debug语言编号
+            cursor.execute("select * from problem  where id = %d " % int(problem_infor["id"]))
             one = cursor.fetchone()
             fin = open(MyConfig.ans_in_file, "w+")
             fout = open(MyConfig.ans_out_file, "w+")
-            fin.write(one[2])
-            fout.write(one[3])
+            fin.write(one[11])
+            fout.write(one[12])
             fin.close()
             fout.close()
             language_code = problem_infor["language"]
@@ -83,11 +84,12 @@ def db():
                 # print("compile failed")
                 # cursor.execute()
             #print(judge_code)# debug
-            cursor.execute( "update teach_submit_code set submit_state = %d,submit_time = %d,submit_memory = %d,accuracy = %s where id = %s"%(judge_code["result"],int(judge_code["time"]),int(judge_code["memory"]),judge_code["is_ac"],problem_infor["run_id"]))
+            cursor.execute( "update problem_status set result = %d,memory = %d  where run_id = %d"%(int(judge_code["result"]),int(judge_code["memory"]),int(problem_infor["run_id"])))
             db.commit()
             print(judge_code)
 
         except :
+            print("hello")
             pass
 
 
