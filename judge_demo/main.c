@@ -1,7 +1,6 @@
 #include <iostream>
-using namesapce sfkjhjas
-safbjf
-s;lkfj
-snglkdgf
-ds,gjnkgf
-ds;gmldg
+using namesapece std;
+int main()
+{
+print("hello")
+}

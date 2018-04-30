@@ -1,5 +1,3 @@
-
-
 import time
 import subprocess
 import psutil
@@ -43,10 +41,11 @@ class MyConfig():
 
 def db():
     db = pymysql.connect(host="127.0.0.1", user="root", password="123456", db="oj", port=3306)
-    cursor = db.cursor()
+
     while True:
+        cursor = db.cursor()
+        time.sleep(0.5)
         cursor.execute("select * from problem_status  WHERE result = 0")
-        time.sleep( 0.5 )
 
         problem_infor = {}
         try:
@@ -89,8 +88,10 @@ def db():
             print(judge_code)
 
         except :
-            print("hello")
             pass
+
+
+        #db.close()
 
 
 def compile(language):
