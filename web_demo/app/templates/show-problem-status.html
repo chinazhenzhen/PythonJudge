@@ -57,15 +57,19 @@
 				<tr>
 					<th scope="row"><a href="#">{{ p_one.run_id }}</a></th>
 					<td><a href="#">{{ p_one.user_name }}</a></td>
-					<td><a href="">{{ p_one.problem_id }}should be name</a></td>
+					<td><a href="{{ url_for('web.show_one_problem',id=p_one.problem_id,_external=True) }}">{{ p_one.problem_id }}题目名称还未写</a></td>
 					<td>{{ p_one.time }}</td>
 					<td>{{ language[p_one.language] }}</td>
-					<td>--</td>
-					<td>--</td>
-					<td>--</td>
-					<td class="warning"><strong>
-                        {{ p_one.result }}
-                    </strong></td>
+					<td>{{ p_one.runtime }}&nbsp;MS</td>
+					<td>{{ p_one.memory }}&nbsp;KB</td>
+					<td>{{ p_one.code_len }}&nbsp;B</td>
+                    {% if p_one.result == 0 %}
+					    <td class="warning"><strong>{{ trans_result[p_one.result] }}</strong></td>
+                    {% elif p_one.result == 1 %}
+                        <td class="success"><strong>{{ trans_result[p_one.result] }}</strong></td>
+                    {% else %}
+                        <td class="bg-danger"><strong>{{ trans_result[p_one.result] }}</strong></td>
+                    {% endif %}
 				</tr>
 				{% endfor %}
 			</tbody>

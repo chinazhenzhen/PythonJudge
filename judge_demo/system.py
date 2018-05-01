@@ -52,9 +52,9 @@ def db():
             i = cursor.fetchone()
             # print(i) #debug
             problem_infor["run_id"] = i[0]  #题目运行id
-            problem_infor["code"] = i[7]  # debug代码，代码code
+            problem_infor["code"] = i[8]  # debug代码，代码code
             problem_infor["id"] = i[1]  # 题目编号
-            problem_infor["language"] = i[6]  # debug语言编号
+            problem_infor["language"] = i[7]  # debug语言编号
             cursor.execute("select * from problem  where id = %d " % int(problem_infor["id"]))
             one = cursor.fetchone()
             fin = open(MyConfig.ans_in_file, "w+")
@@ -75,15 +75,15 @@ def db():
             else:
                 judge_code = {
                 "result":0,
-                "time":0,
-                "memory":0,
+                "time":-1,
+                "memory":-1,
                 "is_ac":"0"
                 }
                 judge_code["result"] = 8 #编译错误
                 # print("compile failed")
                 # cursor.execute()
             #print(judge_code)# debug
-            cursor.execute( "update problem_status set result = %d,memory = %d  where run_id = %d"%(int(judge_code["result"]),int(judge_code["memory"]),int(problem_infor["run_id"])))
+            cursor.execute( "update problem_status set result = %d,memory = %d,runtime = %d,code_len = %d where run_id = %d"%(int(judge_code["result"]),int(judge_code["memory"]),int(judge_code["time"]),len(problem_infor["code"]),int(problem_infor["run_id"])))
             print(judge_code)
 
         except :

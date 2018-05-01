@@ -28,12 +28,12 @@ class JudgeConfig():
         "compile Error":8,
     }
     show_result = {
-        0:"pending",
-        1: "accept",
+        0:"Pending",
+        1: "Accept",
         2: "Presentation Error",
         3: "Wrong Answer",
         4: "Runtime Error",
         5: "Time Limit Exceeded",
         6: "Memery Limit Exceeded",
-        8: "compile Error",
+        8: "Compile Error",
     }

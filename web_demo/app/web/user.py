@@ -41,6 +41,11 @@ def register():
     return render_template('register.html',form=form)
 
 
+@web.route("/userhome")
+@login_required
+def user_home():
+    pass
+
 @web.route("/usertest")
 @login_required
 def testf():

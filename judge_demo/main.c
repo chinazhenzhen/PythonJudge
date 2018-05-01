@@ -1,6 +1,6 @@
 #include <iostream>
-using namesapece std;
+using namespace std;
 int main()
 {
-print("hello")
+printf();
 }

@@ -32,7 +32,10 @@ def show_problem():
 def show_status():
     db_code = problem_status()
 
-    return render_template('show-problem-status.html',data=db_code.query_db_status(),language=JudgeConfig.language_id)
+    return render_template('show-problem-status.html',
+                           data=db_code.query_db_status(),
+                           language=JudgeConfig.language_id,
+                           trans_result=JudgeConfig.show_result)
 
 
 @web.route('/showproblem/<id>',methods=['GET','POST'])

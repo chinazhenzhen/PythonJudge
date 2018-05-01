@@ -95,6 +95,8 @@ class problem_status(db.Model):
     result = Column(Integer,default=JudgeConfig.result_id["pending"])
     #内存
     memory = Column(Integer,default=0)
+    #运行时间
+    runtime = Column(Integer,default=0)
     #提交时间
     time = Column(String(32))
     #语言
