@@ -50,7 +50,7 @@ def db():
         problem_infor = {}
         try:
             i = cursor.fetchone()
-            print(i)
+            # print(i) #debug
             problem_infor["run_id"] = i[0]  #题目运行id
             problem_infor["code"] = i[7]  # debug代码，代码code
             problem_infor["id"] = i[1]  # 题目编号
@@ -84,11 +84,12 @@ def db():
                 # cursor.execute()
             #print(judge_code)# debug
             cursor.execute( "update problem_status set result = %d,memory = %d  where run_id = %d"%(int(judge_code["result"]),int(judge_code["memory"]),int(problem_infor["run_id"])))
-            db.commit()
             print(judge_code)
 
         except :
             pass
+
+        db.commit()#事务的更新
 
 
         #db.close()
