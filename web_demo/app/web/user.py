@@ -2,8 +2,8 @@ from flask import jsonify,request,render_template,flash,redirect,url_for
 from flask_login import login_required,current_user,login_user,logout_user
 
 from . import web
-from app.forms.user import LoginForm,RegisterForm
-from app.models.user import User
+from app.forms.user import LoginForm,RegisterForm,EditUserInformation
+from app.models.user import User,UserInformation
 
 @web.route("/login",methods=['GET','POST'])
 def login():
@@ -45,6 +45,21 @@ def register():
 @login_required
 def user_home():
     pass
+
+@web.route("/edituser",methods=['GET','POST'])
+@login_required
+def edit_user():
+    form = EditUserInformation()
+    userinformation_db = UserInformation()
+
+    if form.validate_on_submit():
+        userinformation_db.edit_user(current_user.id,form.data)
+        flash("更新成功")
+        return redirect('/')
+
+    return render_template('edit-user-information.html',form=form)
+
+
 
 @web.route("/usertest")
 @login_required

@@ -44,6 +44,7 @@ class UserInformation(db.Model):
     配合user使用
     '''
     __tablename__ = "userinformation"
+    #每个帐号的id
     id = Column(Integer,primary_key=True)
     #真实姓名
     real_name = Column(String(64))
@@ -51,6 +52,10 @@ class UserInformation(db.Model):
     avatar = Column(String(128))
     #个性签名
     mood= Column(String(200))
+    #邮箱地址
+    email = Column(String(128))
+    #github
+    github = Column(String(128))
     #博客地址
     blog_address = Column(String(200))
     #hdu昵称
@@ -68,20 +73,45 @@ class UserInformation(db.Model):
     #学号
     student_id = Column(String(24))
     #AC题号统计
-    problem_status = Column(JSON, default={})
+    problem_status = Column(String(10000), default="")  #json字段 存在问题，这个地方应该用json储存数据。
+    #这个地方存json数据
 
-    def edit_user(self,data):
+    def edit_user(self,id,data):
+        self.id = id
         self.real_name = data['real_name']
-        self.avatar = data['avatar']
+        #self.avatar = data['avatar']
         self.mood = data['mood']
+        self.email = data['email']
+        self.github = data['github']
         self.blog_address = data['blog_address']
         self.hduoj_name = data['hduoj_name']
         self.coderforces_name = data['coderforces_name']
         self.phone_number = data['phone_number']
         self.school = data['school']
         self.student_id = data['student_id']
+        one_user = UserInformation.query.filter_by(id=id).first()
 
-        db.session.add(self)
+        if one_user:
+            self.update_user(one_user,data)
+        else:
+            db.session.add(self)
+
+
+    @staticmethod
+    def update_user(one_user,data):
+
+        one_user.real_name = data['real_name']
+        # self.avatar = data['avatar']
+        one_user.mood = data['mood']
+        one_user.email = data['email']
+        one_user.github = data['github']
+        one_user.blog_address = data['blog_address']
+        one_user.hduoj_name = data['hduoj_name']
+        one_user.coderforces_name = data['coderforces_name']
+        one_user.phone_number = data['phone_number']
+        one_user.school = data['school']
+        one_user.student_id = data['student_id']
+
 
 
 
