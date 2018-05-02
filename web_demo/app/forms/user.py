@@ -11,3 +11,14 @@ class RegisterForm(FlaskForm):
     name = StringField("帐号", validators=[DataRequired(), Length(min=1, max=30)])
     password = PasswordField("密码", validators=[DataRequired(), Length(min=1, max=30)])
     login = SubmitField("注册")
+
+class EditUserInformation(FlaskForm):
+    real_name = StringField("真实姓名",validators=[DataRequired(),Length(min=0,max=30)])
+    #avatar = StringField("真实姓名",validators=[DataRequired(),Length(min=0,max=30)])
+    mood = StringField("个性签名",validators=[DataRequired(),Length(min=0,max=300)])
+    blog_address = StringField("博客地址",validators=[DataRequired(),Length(min=0,max=300)])
+    hduoj_name = StringField("hdu昵称",validators=[DataRequired(),Length(min=0,max=64)])
+    coderforces_name = StringField("coderforces昵称",validators=[DataRequired(),Length(min=0,max=64)])
+    phone_number = StringField("手机号码",validators=[DataRequired(),Length(min=0,max=15)])
+    school = StringField("学校",validators=[DataRequired(),Length(min=0,max=128)])
+    student_id = StringField("学生学号",validators=[DataRequired(),Length(min=0,max=20)])
