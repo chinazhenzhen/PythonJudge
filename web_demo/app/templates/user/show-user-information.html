@@ -1,0 +1,71 @@
+{% extends "index.html" %}
+
+{% block title %}
+    {{ username }}的主页
+{% endblock %}
+
+{% block content %}
+    <div class="container main">
+        <div class="col-lg-4">
+            <div class="avatar">
+                <img src="/static/image/logo.png" class="img-responsive" id="index-avatar">
+            </div>
+            <div>
+                <h2>
+                    {{ user.username }}
+                    {% if user.admin_type == 2 %}
+                        <span class="glyphicon glyphicon-star super-admin-star" title="超级管理员"></span>
+                    {% endif %}
+                    {% if user.admin_type == 1 %}
+                        <span class="glyphicon glyphicon-star admin-star"></span>
+                    {% endif %}
+
+                </h2>
+                {% if user_information.mood %}
+                    <p id="user-mood">个性签名：{{ user_information.mood }}</p>
+                {% endif %}
+
+            </div>
+            <div class="list-group col-lg-9">
+                {% if user_information.school %}
+                <p class="list-group-item"> <span class=""></span>
+                    {{ user_information.school }}
+                </p>
+                {% endif %}
+                {% if user_information.blog_address %}
+                <p class="list-group-item"> <span class=""></span>
+                    <a href="{{ user_information.blog_address }}" target="_blank">{{ user_information.blog_address }}</a>
+                </p>
+                {% endif %}
+
+                {% if user_information.hduoj_name %}
+                <p class="list-group-item">
+                    <img src="/static/image/oj_logo/hdu_logo.png" id="oj-logo">
+                    <a href="http://acm.hdu.edu.cn/userstatus.php?user={{ user_information.hduoj_name }}" target="_blank">
+                        {{ user_information.hduoj_name }}
+                    </a>
+                </p>
+                {% endif %}
+
+                {% if user_information.codeforces_name %}
+                <p class="list-group-item">
+                    <img src="/static/image/oj_logo/codeforces_logo.png" id="oj-logo">
+                    <a href="http://codeforces.com/profile/{{ user_information.codeforces_name }}" target="_blank">
+                        {{ user_information.codeforces_name }}
+                    </a>
+                </p>
+                {% endif %}
+
+                <p class="list-group-item">
+                    <span class=""></span>
+                    {{ user.create_time }}
+                </p>
+
+            </div>
+        </div>
+        <div class="col-lg-8">
+
+        </div>
+    </div>
+{% endblock %}
+

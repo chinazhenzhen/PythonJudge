@@ -112,6 +112,11 @@ class UserInformation(db.Model):
         one_user.school = data['school']
         one_user.student_id = data['student_id']
 
+    @staticmethod
+    def query_userinformation(id):
+        data = UserInformation.query.filter_by(id=id).first()
+        return data
+
 
 
 

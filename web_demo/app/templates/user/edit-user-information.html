@@ -5,7 +5,7 @@
     修改{{ current_user.name }}的个人资料
 {% endblock %}
 {% block content %}
-    <!-- <div class="container main">
+     <div class="container main">
         <div class="col-lg-2">
             <ul class="list-group">
                 <li class="list-group-header">通用设置</li>
@@ -15,10 +15,11 @@
             </ul>
         </div>
         <div class="col-lg-3">
-            <img src="" class="img-responsive index-avatar">
+            <img src="/static/image/logo.png" class="img-responsive index-avatar">
         </div>
         <div class="col-lg-6">
-            <form method="post">
+            
+            <!--<form method="POST">
                 <div class="row">
                     <div class="form-group col-md-6"><label>用户名</label>
                         <input name="username" type="text" class="form-control"
@@ -80,11 +81,14 @@
                     <div class="help-block with-errors"></div>
                 </div>
 
-                {{ form.submit }}
+                {{ form.update() }}
 
-            </form>
+            </form>-->
+
+            {{ wtf.quick_form(form) }}
         </div>
 
-    </div> -->
-    {{ wtf.quick_form(form) }}
+    </div>
+
+    <!-- {{ wtf.quick_form(form) }} -->
 {% endblock %}

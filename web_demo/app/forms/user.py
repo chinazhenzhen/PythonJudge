@@ -25,4 +25,4 @@ class EditUserInformation(FlaskForm):
     school = StringField("学校",validators=[DataRequired(),Length(min=0,max=128)])
     student_id = StringField("学生学号",validators=[DataRequired(),Length(min=0,max=20)])
 
-    submit = SubmitField("提交")
+    update = SubmitField("提交")

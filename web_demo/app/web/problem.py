@@ -19,20 +19,20 @@ def edit_problem():
     if form.validate_on_submit():
         db.edit_problem(form)
 
-    return render_template('edit-problem.html',form=form)
+    return render_template('problem/edit-problem.html',form=form)
 
 
 @web.route('/showproblem')
 def show_problem():
     db = problem()
     
-    return render_template('show-problem.html',data=db.query_problem())
+    return render_template('problem/show-problem.html',data=db.query_problem())
 
 @web.route('/showstatus')
 def show_status():
     db_code = problem_status()
 
-    return render_template('show-problem-status.html',
+    return render_template('problem/show-problem-status.html',
                            data=db_code.query_db_status(),
                            language=JudgeConfig.language_id,
                            trans_result=JudgeConfig.show_result)
@@ -53,7 +53,7 @@ def show_one_problem(id):
         db_code.submit_code(data)
         return redirect("/showstatus")
     else:
-        return render_template('show-one-problem.html',p_one=db.query_one_problem(id),form=form)
+        return render_template('problem/show-one-problem.html',p_one=db.query_one_problem(id),form=form)
 
 
 @web.route('/test')

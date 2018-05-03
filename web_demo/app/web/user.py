@@ -18,7 +18,7 @@ def login():
         else:
             flash("登录失败")
 
-    return render_template('login.html',form=form)
+    return render_template('user/login.html',form=form)
 
 @web.route("/logout")
 def logout():
@@ -38,13 +38,16 @@ def register():
             flash("success")
             return redirect('/login')
 
-    return render_template('register.html',form=form)
+    return render_template('user/register.html',form=form)
 
 
-@web.route("/userhome")
-@login_required
-def user_home():
-    pass
+@web.route('/userhome/<username>')
+def show_user(username):
+    db_to_id = User()
+    db = UserInformation()
+    id = db_to_id.query_one_user(username).id
+
+    return render_template('user/show-user-information.html',user_information = db.query_userinformation(id),user=db_to_id.query_one_user(username),username=username)
 
 @web.route("/edituser",methods=['GET','POST'])
 @login_required
@@ -57,7 +60,8 @@ def edit_user():
         flash("更新成功")
         return redirect('/')
 
-    return render_template('edit-user-information.html',form=form)
+    return render_template('user/edit-user-information.html',form=form)
+
 
 
 
