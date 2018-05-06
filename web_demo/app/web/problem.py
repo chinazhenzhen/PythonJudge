@@ -53,7 +53,7 @@ def show_one_problem(id):
         db_code.submit_code(data)
         return redirect("/showstatus")
     else:
-        return render_template('problem/show-one-problem.html',p_one=db.query_one_problem(id),form=form)
+        return render_template('problem/show-one-problem.html',p_one=db.query_one_problem(id),form=form,id=id)
 
 
 @web.route('/test')

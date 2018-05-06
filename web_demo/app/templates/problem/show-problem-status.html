@@ -56,8 +56,8 @@
 				{% for p_one in data %}
 				<tr>
 					<th scope="row"><a href="#">{{ p_one.run_id }}</a></th>
-					<td><a href="#">{{ p_one.user_name }}</a></td>
-					<td><a href="{{ url_for('web.show_one_problem',id=p_one.problem_id,_external=True) }}">{{ p_one.problem_id }}题目名称还未写</a></td>
+					<td><a href="{{ url_for('web.show_user',username=p_one.user_name,_external=True) }}">{{ p_one.user_name }}</a></td>
+					<td><a href="{{ url_for('web.show_one_problem',id=p_one.problem_id,_external=True) }}">{{ p_one.problem_name }}</a></td>
 					<td>{{ p_one.time }}</td>
 					<td>{{ language[p_one.language] }}</td>
 					<td>{{ p_one.runtime }}&nbsp;MS</td>

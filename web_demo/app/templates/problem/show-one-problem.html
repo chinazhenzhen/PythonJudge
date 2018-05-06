@@ -7,7 +7,7 @@
 
 
 {% block content %}
-    <div class="container main">
+<div class="container main">
     <ul class="nav nav-tabs">
         <li role="presentation" class="active">
             <a href="#">题目</a>
@@ -16,7 +16,6 @@
             <a href="#" color：#fff>我的提交</a>
         </li>
     </ul>
-    </div>
 
     <h2 class="text-center">{{ p_one.title }}</h2>
     <p class="text-muted text-center">
@@ -25,10 +24,45 @@
     内存限制：{{ p_one.memory_limit }}M &nbsp;&nbsp;
     </p>
 
+    <div class="">
+        <label class="label-info">描述</label>
+        <div class="">{{ p_one.description }}</div>
+    </div>
+
+    <div class="">
+        <label class="label-info">输入</label>
+        <div class="">{{ p_one.input_description }}</div>
+    </div>
+
+    <div class="">
+        <label class="label-info">输出</label>
+        <div class="">{{ p_one.output_description }}</div>
+    </div>
+
+    <div class="">
+        <label class="label-info">样例输入</label>
+        <pre>{{ p_one.input_example }}</pre>
+    </div>
+
+    <div class="">
+        <label class="label-info">样例输出</label>
+        <pre>{{ p_one.output_example }}</pre>
+    </div>
+
+    <div class="">
+        <label class="label-info">提示</label>
+        <div class="">{{ p_one.hint }}</div>
+    </div>
+
+    <div class="">
+        <label class="label-info">来源</label>
+        <div class="">{{ p_one.source }}</div>
+    </div>
 
 
 
-<li>题目id：<br>{{ p_one.id }}</li>
+
+<!-- <li>题目id：<br>{{ p_one.id }}</li>
 <li>题目标题：<br>{{ p_one.title }}</li>
 <li>题目介绍：<br>{{ p_one.description }}</li>
 <li>输入介绍：<br>{{ p_one.input_description }}</li>
@@ -36,7 +70,16 @@
 <li>输入样例：<br>{{ p_one.input_example }}</li>
 <li>输出样例：<br>{{ p_one.output_example }}</li>
 <li>题目提示：<br>{{ p_one.hint }}</li>
-<li>题目来源：<br>{{ p_one.source }}</li>
-
+<li>题目来源：<br>{{ p_one.source }}</li> -->
+<!--<div>
+    <form action="/showproblem/{{ id }}" method="POST" enctype="multipart/form-data">
+    <label>选择语言</label>
+    {{ form.code_language }}
+    <label>提交代码</label>
+    {{ form.code }}
+    {{ form.submit() }}
+    </form> -
+<div> -->
 {{ wtf.quick_form(form) }}
+</div>
 {% endblock %}

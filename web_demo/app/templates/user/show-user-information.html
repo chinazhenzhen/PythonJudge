@@ -38,6 +38,15 @@
                 </p>
                 {% endif %}
 
+                {% if user_information.github %}
+                <p class="list-group-item">
+                    <img src="/static/image/oj_logo/github_logo.png" id="oj-logo">
+                    <a href="{{ user_information.github }}" target="_blank">
+                        {{ user_information.github }}
+                    </a>
+                </p>
+                {% endif %}
+
                 {% if user_information.hduoj_name %}
                 <p class="list-group-item">
                     <img src="/static/image/oj_logo/hdu_logo.png" id="oj-logo">
@@ -47,11 +56,11 @@
                 </p>
                 {% endif %}
 
-                {% if user_information.codeforces_name %}
+                {% if user_information.coderforces_name %}
                 <p class="list-group-item">
                     <img src="/static/image/oj_logo/codeforces_logo.png" id="oj-logo">
-                    <a href="http://codeforces.com/profile/{{ user_information.codeforces_name }}" target="_blank">
-                        {{ user_information.codeforces_name }}
+                    <a href="http://codeforces.com/profile/{{ user_information.coderforces_name }}" target="_blank">
+                        {{ user_information.coderforces_name }}
                     </a>
                 </p>
                 {% endif %}

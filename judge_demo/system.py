@@ -52,9 +52,9 @@ def db():
             i = cursor.fetchone()
             # print(i) #debug
             problem_infor["run_id"] = i[0]  #题目运行id
-            problem_infor["code"] = i[8]  # debug代码，代码code
+            problem_infor["code"] = i[9]  # debug代码，代码code
             problem_infor["id"] = i[1]  # 题目编号
-            problem_infor["language"] = i[7]  # debug语言编号
+            problem_infor["language"] = i[8]  # debug语言编号
             cursor.execute("select * from problem  where id = %d " % int(problem_infor["id"]))
             one = cursor.fetchone()
             fin = open(MyConfig.ans_in_file, "w+")

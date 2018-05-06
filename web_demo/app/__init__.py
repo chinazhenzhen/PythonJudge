@@ -2,6 +2,8 @@ from flask import Flask
 from app.models.problem import db
 from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
+#from flask_migrate import Migrate,MigrateCommand
+#from flask_script import Manager
 
 bootstrap = Bootstrap()
 login_manager = LoginManager()
@@ -16,9 +18,14 @@ def create_app():
     db.init_app(app)
     db.create_all(app=app)  #创建数据库
 
+    #migrate = Migrate(app,db)
+    #manager = Manager(app)
+    #manager.add_command('db',MigrateCommand)
+
     bootstrap.init_app(app)  #加载bootstrap模块
 
-    login_manager.init_app(app)
+    login_manager.init_app(app)  #加载登录验证模块
+
 
 
     return app

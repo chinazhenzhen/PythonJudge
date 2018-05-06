@@ -89,6 +89,8 @@ class problem_status(db.Model):
     problem_id = Column(Integer,ForeignKey('problem.id')) #外键
     #通过problem_info就可以查询相关信息
     problem_infor = db.relationship('problem')  #建立关系
+    #问题名
+    problem_name = Column(String(128))
     #提交人
     user_name = Column(String(64))
     #提交结果
@@ -115,6 +117,7 @@ class problem_status(db.Model):
 
     def submit_code(self,data):
         self.problem_id = data['id']
+        self.problem_name = problem.query.filter_by(id=self.problem_id).first().title
         self.language = data['language']
         self.code = data['code']
         self.user_name = data['user_name']
