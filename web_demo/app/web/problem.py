@@ -9,7 +9,7 @@ from app.setting import JudgeConfig
 
 @web.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('home.html')
 
 
 @web.route('/editproblem',methods=['GET','POST'])
