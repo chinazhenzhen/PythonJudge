@@ -28,12 +28,15 @@ def show_problem():
     
     return render_template('problem/show-problem.html',data=db.query_problem())
 
-@web.route('/showstatus')
+@web.route('/showstatus',methods=['GET','POST'])
 def show_status():
+    page = request.args.get('page', 1, type=int)
     db_code = problem_status()
-
+    pagination = db_code.query_db_status(page)
+    data = pagination.items
     return render_template('problem/show-problem-status.html',
-                           data=db_code.query_db_status(),
+                           data=data,
+                           pagination=pagination,
                            language=JudgeConfig.language_id,
                            trans_result=JudgeConfig.show_result)
 

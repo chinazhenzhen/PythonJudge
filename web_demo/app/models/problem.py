@@ -128,8 +128,9 @@ class problem_status(db.Model):
 
 
     @staticmethod
-    def query_db_status():
-        status_data = problem_status.query.order_by(problem_status.run_id.desc()).all()
+    def query_db_status(page):
+        #status_data = problem_status.query.order_by(problem_status.run_id.desc()).all()
+        status_data = problem_status.query.order_by(problem_status.run_id.desc()).paginate(page=page,per_page=20,error_out=False)
         db.session.rollback()
         return status_data
 

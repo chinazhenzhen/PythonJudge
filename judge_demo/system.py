@@ -13,15 +13,16 @@ class MyConfig():
     """
     dir_work = "./"
 
-    ans_in_file = "./ans.in"
+    ans_in_file = "./ansin"
 
-    ans_out_file = "./ans.out"
+    ans_out_file = "./ansout"
     user_out_file = "./user.out"
 
     code_file = {
-        1: "./main.cpp",
-        2: "./main.c",
+        1: ".cpp",
+        2: ".c",
     }
+
 
     language_code = {
         1: "g++",
@@ -40,7 +41,7 @@ class MyConfig():
 
 
 def db():
-    db = pymysql.connect(host="127.0.0.1", user="root", password="123456", db="oj", port=3306)
+    db = pymysql.connect(host="127.0.0.1", user="root", password="12345678", db="oj", port=3306)
 
     while True:
         cursor = db.cursor()
@@ -57,21 +58,36 @@ def db():
             problem_infor["language"] = i[8]  # debug语言编号
             cursor.execute("select * from problem  where id = %d " % int(problem_infor["id"]))
             one = cursor.fetchone()
-            fin = open(MyConfig.ans_in_file, "w+")
-            fout = open(MyConfig.ans_out_file, "w+")
-            fin.write(one[11])
-            fout.write(one[12])
-            fin.close()
-            fout.close()
+
+            #fin = open(MyConfig.ans_in_file, "w+")
+            #fout = open(MyConfig.ans_out_file, "w+")
+            #fin = one[11]
+            #fout = one[12]
+            #fin.close()
+            #fout.close()
             language_code = problem_infor["language"]
-            fcode = open(MyConfig.code_file[language_code], "w+")
+            codepath = "./"+str(problem_infor["run_id"])+MyConfig.code_file[language_code]
+            #codepath = MyConfig.code_file[language_code]
+
+            fcode = open(codepath, "w+")
             fcode.write(problem_infor["code"])
             fcode.close()
 
 
-            if compile(MyConfig.language_code[language_code]):
-                judge_code = time_mem(MyConfig.language_code[language_code])
+            if compile(MyConfig.language_code[language_code],codepath[2:],'main'+str(problem_infor['run_id'])):
+
+                ansinpath = MyConfig.ans_in_file+str(problem_infor["run_id"])
+                ansoutpath = MyConfig.ans_out_file+str(problem_infor["run_id"])
+                fin = open(ansinpath, "w+")
+                fout = open(ansoutpath, "w+")
+                fin.write(one[11])
+                fout.write(one[12])
+                fin.close()
+                fout.close()
+                judge_code = time_mem(MyConfig.language_code[language_code],ansinpath,ansoutpath,str(problem_infor["run_id"]))
                 # print(judge_code)
+
+
             else:
                 judge_code = {
                 "result":0,
@@ -83,6 +99,12 @@ def db():
                 # print("compile failed")
                 # cursor.execute()
             #print(judge_code)# debug
+            try:
+                os.remove(codepath)
+                os.remove('./main'+str(problem_infor['run_id']))
+            except:
+                pass
+
             cursor.execute( "update problem_status set result = %d,memory = %d,runtime = %d,code_len = %d where run_id = %d"%(int(judge_code["result"]),int(judge_code["memory"]),int(judge_code["time"]),len(problem_infor["code"]),int(problem_infor["run_id"])))
             print(judge_code)
 
@@ -90,15 +112,14 @@ def db():
             pass
 
         db.commit()#事务的更新
+        cursor.close()
+        db.close()
 
 
-        #db.close()
-
-
-def compile(language):
+def compile(language,codepath,id):
     build_cmd = {
-        "gcc": "gcc main.c -o main -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE",
-        "g++": "g++ main.cpp -O2 -Wall -lm --static -DONLINE_JUDGE -o main",
+        "gcc": "gcc {} -o {} -Wall -lm -O2 -std=c99 --static -DONLINE_JUDGE".format(codepath,id),
+        "g++": "g++ {} -O2 -Wall -lm --static -DONLINE_JUDGE -o {}".format(codepath,id),
         # "java": "javac Main.java",
         # "ruby": "ruby -c main.rb",
         # "perl": "perl -c main.pl",
@@ -119,14 +140,14 @@ def compile(language):
     return False
 
 
-def judge_result():
+def judge_result(fout,uout):
     '''对输出数据进行评测'''
-    currect_result = os.path.join(MyConfig.ans_out_file)
-    user_result = os.path.join(MyConfig.user_out_file)
+    currect_result = fout
+    user_result = uout
     try:
-        curr = open(currect_result).read().replace('\r', '').rstrip()  # 删除\r,删除行末的空格和换行
+        curr = currect_result.replace('\r', '').rstrip()  # 删除\r,删除行末的空格和换行
         # print(curr) #debug
-        user = open(user_result).read().replace('\r', '').rstrip()  # python2中使用file函数
+        user = user_result.replace('\r', '').rstrip()  # python2中使用file函数
         # print(user) #debug
     except:
         return False
@@ -139,16 +160,18 @@ def judge_result():
     return 3  # 其他WA
 
 
-def time_mem(language):
+def time_mem(language,ansinpath,ansoutpath,id):
     """
     执行程序获取执行时间与内存
     """
-    fin = open(MyConfig.ans_in_file, "r+")
-    fout = open(MyConfig.user_out_file, "w+")
+
+    fin = open(ansinpath, "r+")
+    useroutpath = ansoutpath+"user"
+    fout = open(useroutpath, "w+")
 
     p_cmd = {  # 运行程序的命令,这里以C++、C语言为例
-        "gcc": "./main",
-        "g++": "./main",
+        "gcc": "./main"+str(id),
+        "g++": "./main"+str(id),
     }
 
     time_limit = 1  # second
@@ -192,7 +215,18 @@ def time_mem(language):
 
     problem_info['time'] = time_now * 1000
     problem_info['memory'] = max_rss / 1024.0
-    problem_info['result'] = judge_result()
+
+    currect_result = os.path.join(ansoutpath)
+    user_result = os.path.join(useroutpath)
+    uout = open(user_result).read()
+    fout = open(currect_result).read()
+
+    os.remove(useroutpath)
+    os.remove(ansoutpath)
+    os.remove(ansinpath)
+    #os.remove('./' + str(id) + '.out')
+
+    problem_info['result'] = judge_result(fout,uout)
     if problem_info['result'] == 1:
         problem_info['is_ac'] = 1
     return problem_info
